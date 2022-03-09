@@ -61,10 +61,45 @@ class RandomGhostN(GhostAgent):
                 dist[a] = 1
             elif a == "West":
                 dist[a] = 1
- 
-        dist.normalize()
-        return dist    
 
+        dist.normalize()
+        return dist
+
+class RandomGhostNS(GhostAgent):
+    "A ghost that chooses a legal action at random but with a higher probability for north and south."
+
+    def getDistribution(self, state):
+        dist = util.Counter()
+        for a in state.getLegalActions(self.index):
+            if a == "North":
+                dist[a] = 2
+            elif a == "South":
+                dist[a] = 2
+            elif a == "East":
+                dist[a] = 1
+            elif a == "West":
+                dist[a] = 1
+
+        dist.normalize()
+        return dist
+
+class RandomGhostEW(GhostAgent):
+    "A ghost that chooses a legal action uniformly at random."
+
+    def getDistribution(self, state):
+        dist = util.Counter()
+        for a in state.getLegalActions(self.index):
+            if a == "North":
+                dist[a] = 1
+            elif a == "South":
+                dist[a] = 1
+            elif a == "East":
+                dist[a] = 2
+            elif a == "West":
+                dist[a] = 2
+
+        dist.normalize()
+        return dist
 
 class DirectionalGhost80(GhostAgent):
     "A ghost that prefers to rush Pacman, or flee when scared."

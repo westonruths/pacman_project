@@ -29,7 +29,7 @@ params = {
     # Model backups
     'load_file': None,
     'save_file': None,
-    'save_interval' : 10000, 
+    'save_interval' : 10000,
 
     # Training parameters
     'train_start': 5000,    # Episodes before training starts
@@ -45,7 +45,7 @@ params = {
     'eps': 1.0,             # Epsilon start value
     'eps_final': 0.1,       # Epsilon end value
     'eps_step': 10000       # Epsilon steps between start and end (linear)
-}                     
+}
 
 
 
@@ -69,7 +69,7 @@ class PacmanDQN(game.Agent):
         self.general_record_time = time.strftime("%a_%d_%b_%Y_%H_%M_%S", time.localtime())
         # Q and cost
         self.Q_global = []
-        self.cost_disp = 0     
+        self.cost_disp = 0
 
         # Stats
         self.cnt = self.qnet.sess.run(self.qnet.global_step)
@@ -91,7 +91,7 @@ class PacmanDQN(game.Agent):
             self.Q_pred = self.qnet.sess.run(
                 self.qnet.y,
                 feed_dict = {self.qnet.x: np.reshape(self.current_state,
-                                                     (1, self.params['width'], self.params['height'], 6)), 
+                                                     (1, self.params['width'], self.params['height'], 6)),
                              self.qnet.q_t: np.zeros(1),
                              self.qnet.actions: np.zeros((1, 4)),
                              self.qnet.terminals: np.zeros(1),
@@ -134,7 +134,7 @@ class PacmanDQN(game.Agent):
             return Directions.SOUTH
         else:
             return Directions.WEST
-            
+
     def observation_step(self, state):
         if self.last_action is not None:
             # Process current experience state
@@ -156,12 +156,12 @@ class PacmanDQN(game.Agent):
             elif reward < 0:
                 self.last_reward = -1.    # Punish time (Pff..)
 
-            
+
             if(self.terminal and self.won):
                 self.last_reward = 100.
             self.ep_rew += self.last_reward
 
-            # Store last experience into memory 
+            # Store last experience into memory
             experience = (self.last_state, float(self.last_reward), self.last_action, self.current_state, self.terminal)
             self.replay_mem.append(experience)
             if len(self.replay_mem) > self.params['mem_size']:
@@ -236,9 +236,9 @@ class PacmanDQN(game.Agent):
     def get_onehot(self, actions):
         """ Create list of vectors with 1 values at index of action in list """
         actions_onehot = np.zeros((self.params['batch_size'], 4))
-        for i in range(len(actions)):                                           
-            actions_onehot[i][int(actions[i])] = 1      
-        return actions_onehot   
+        for i in range(len(actions)):
+            actions_onehot[i][int(actions[i])] = 1
+        return actions_onehot
 
     def mergeStateMatrices(self, stateMatrices):
         """ Merge state matrices to one state tensor """
@@ -249,7 +249,7 @@ class PacmanDQN(game.Agent):
         return total
 
     def getStateMatrices(self, state):
-        """ Return wall, ghosts, food, capsules matrices """ 
+        """ Return wall, ghosts, food, capsules matrices """
         def getWallMatrix(state):
             """ Return matrix with wall coordinates set to 1 """
             width, height = state.data.layout.width, state.data.layout.height
@@ -331,7 +331,7 @@ class PacmanDQN(game.Agent):
 
         # Create observation matrix as a combination of
         # wall, pacman, ghost, food and capsule matrices
-        # width, height = state.data.layout.width, state.data.layout.height 
+        # width, height = state.data.layout.width, state.data.layout.height
         width, height = self.params['width'], self.params['height']
         observation = np.zeros((6, height, width))
 
