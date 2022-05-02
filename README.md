@@ -1,5 +1,5 @@
-# PacmanDQN
-Deep Reinforcement Learning in Pac-man
+# Puzzling Pac-Man: Impact of changing Transition Function in Deep RL
+by Weston Ruths
 
 ## Demo
 
@@ -7,11 +7,13 @@ Deep Reinforcement Learning in Pac-man
 
 ## Example usage
 
-Run a model on `smallGrid` layout for 6000 episodes, of which 5000 episodes
-are used for training.
+Run a model on `smallClassic` layout for 15000 episodes, of which 10000 episodes
+are used for training. The transition function (the ghosts) will change at the 10000 episode mark
+and will switch from a Directional Ghost to a Random Ghost.
 
 ```
 $ python3 pacman.py -p PacmanDQN -n 6000 -x 5000 -l smallGrid
+$ python3 pacman.py -p PacmanDQN -n 15000 -x 10000 -l smallClassic -g DirectionalGhost30 -e RandomGhost --frameTime 0 -q
 ```
 
 ### Layouts
@@ -35,31 +37,9 @@ Epsilon start value: `eps` <br />
 Epsilon final value: `eps_final` <br />
 Number of steps between start and final epsilon value (linear): `eps_step` <br />
 
-## Citation
-
-Please cite this repository if it was useful for your research:
-
-```
-@article{van2016deep,
-  title={Deep Reinforcement Learning in Pac-man},
-  subtitle={Bachelor Thesis},
-  author={van der Ouderaa, Tycho},
-  year={2016},
-  school={University of Amsterdam},
-  type={Bachelor Thesis},
-  pdf={https://esc.fnwi.uva.nl/thesis/centraal/files/f323981448.pdf},
-}
-
-```
-
-* [van der Ouderaa, Tycho (2016). Deep Reinforcement Learning in Pac-man.](https://esc.fnwi.uva.nl/thesis/centraal/files/f323981448.pdf)
-
-## Requirements
-
-- `python==3.5.1`
-- `tensorflow==0.8rc`
-
 ## Acknowledgements
+RL Agent by
+* [tychovdo](https://github.com/tychovdo/PacmanDQN) ([https://github.com/tychovdo/PacmanDQN](https://github.com/tychovdo/PacmanDQN))
 
 DQN Framework by  (made for ATARI / Arcade Learning Environment)
 * [deepQN_tensorflow](https://github.com/mrkulk/deepQN_tensorflow) ([https://github.com/mrkulk/deepQN_tensorflow](https://github.com/mrkulk/deepQN_tensorflow))
